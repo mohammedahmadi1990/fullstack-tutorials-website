@@ -1,0 +1,13 @@
+server:
+  port: 8081
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres?createDatabaseIfNotExist=true
+    username: postgres
+    password: 049151830
+  jpa:
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        hibernate.default_schema: tutorials_db

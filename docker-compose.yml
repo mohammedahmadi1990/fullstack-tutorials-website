@@ -12,7 +12,8 @@ services:
   backend-spring:
     container_name: backend-spring
     image: backend-spring
-    build: ./springboot-tutorial
+    build:
+      context: ./springboot-tutorial
     ports:
       - "8081:8081"
     depends_on:

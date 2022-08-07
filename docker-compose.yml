@@ -1,0 +1,37 @@
+version: '3.1'
+services:
+  postgresqldb:
+    image: postgres
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_PASSWORD=049151830
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=postgres
+
+  backend-spring:
+    container_name: backend-spring
+    image: backend-spring
+    build: ./springboot-tutorial
+    ports:
+      - "8081:8081"
+    depends_on:
+      - postgresqldb
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgresqldb:5432/postgres
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=049151830
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+    links:
+      - postgresqldb
+
+  frontend-react:
+    build:
+      context: ./react-tutorial
+    ports:
+      - 3000:3000
+    image: frontend-react
+    container_name: frontend-react
+    command: npm start
+    links:
+      - backend-spring
